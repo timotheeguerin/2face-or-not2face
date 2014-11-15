@@ -1,34 +1,28 @@
-*.gem
-*.rbc
-/.config
-/coverage/
-/InstalledFiles
-/pkg/
-/spec/reports/
-/test/tmp/
-/test/version_tmp/
-/tmp/
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
 
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
+# Precompiled Headers
+*.gch
+*.pch
 
-## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
-/doc/
-/rdoc/
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
 
-## Environment normalisation:
-/.bundle/
-/lib/bundler/man/
+# Fortran module files
+*.mod
 
-# for a library or gem, you might want to ignore these files since the code is
-# intended to run in multiple environments; otherwise, check them in:
-# Gemfile.lock
-# .ruby-version
-# .ruby-gemset
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
 
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
+# Executables
+*.exe
+*.out
+*.app
