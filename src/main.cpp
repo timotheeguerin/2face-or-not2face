@@ -37,10 +37,17 @@ int main(int argc, char *argv[]) {
     } else if (args["-g"] == docopt::value(true) || args["--gallery"] == docopt::value(true)) {
 
         FaceMatcher matcher;
+
+        std::cout << "Training with gallery: "<< args["<gallery_path>"].asString() << std::endl;
         matcher.train(args["<gallery_path>"].asString());
+        std::cout << "Done training." << std::endl;
         
         int pred = matcher.predict(args["<picture>"].asString());
 
+        if (pred < 0) {
+            std::cout << "Cannot decide." << std::endl;
+        }
+        
         std::cout << pred << std::endl;
 
     } else if (args["-t"] == docopt::value(true) || args["--test"] == docopt::value(true)) {
