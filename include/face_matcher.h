@@ -8,6 +8,7 @@ class FaceMatcher {
 private:
     static std::string DATA_FILE;;
     FisherMatcher *matcher;
+    FisherMatcher *fullMatcher;
 public:
     FaceMatcher();
 

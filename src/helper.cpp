@@ -86,21 +86,27 @@ Mat Helper::asRowMatrix(InputArrayOfArrays src, int rtype, double alpha, double 
     return data;
 }
 
-Mat Helper::norm_0_255(InputArray _src) {
-    Mat src = _src.getMat();
-    // Create and return normalized image:
-    Mat dst;
-    switch (src.channels()) {
-        case 1:
-            cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC1);
-            break;
-        case 3:
-            cv::normalize(_src, dst, 0, 255, NORM_MINMAX, CV_8UC3);
-            break;
-        default:
-            src.copyTo(dst);
-            break;
+Mat Helper::findFace(Mat frame) {
+    CascadeClassifier face_cascade;
+    if (!face_cascade.load("data/haarcascade_frontalface_alt.xml")) {
+        cerr << "Error Haar cascade not found!\n";
+        return Mat();
+    };
+
+    std::vector<Rect> faces;
+    equalizeHist(frame, frame);
+
+    //Find the faces
+    face_cascade.detectMultiScale(frame, faces, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, Size(30, 30));
+    Mat face = frame.clone();
+    if (faces.size() >= 1) {
+        int r = max(faces[0].width, faces[0].height);
+        Rect rect = cvRect(faces[0].x, faces[0].y, r, r);
+        face = frame(rect);
     }
+    Size size(300, 300);
+    Mat dst;
+    resize(face, dst, size);
     return dst;
 }
 
@@ -113,18 +119,23 @@ Mat Helper::readImage(std::string path) {
     }
     Mat src = imread(filename, 0);
     Mat dst = src.clone();
-    blur(src, dst, Size(3, 3));
     return dst;
 }
 
+
+vector<Mat> Helper::blurImages(vector<Mat> srcs) {
+    vector<Mat> dsts;
+    for (int i = 0; i != srcs.size(); ++i) {
+        Mat dst;
+        blur(srcs[i], dst, Size(3, 3));
+        dsts.push_back(dst);
+    }
+    return dsts;
+}
+
+
 Mat Helper::transformImage(Mat src) {
-    Mat dst = src.clone();
-    int lowThreshold = 100;
-    cv::adaptiveThreshold(src, dst, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 5, 7);
-//        Canny( src, dst, lowThreshold, lowThreshold*3, 3 );
-    cv::imshow("dawd", dst);
-    cv::waitKey(20);
-    return dst;
+    return findFace(src.clone());
 }
 
 

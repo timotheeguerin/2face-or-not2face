@@ -22,8 +22,9 @@ private:
     vector<int> persons;
 
 public:
-    FisherMatcher(int component_number = 0, double threshold = 5000) : component_number(component_number),
-                                                                        threshold(threshold) {
+    FisherMatcher(double threshold = 2500) :
+            threshold(threshold) {
+        component_number = 0;
     }
 
     Mat getMean() {
@@ -36,16 +37,16 @@ public:
 
     void train(std::vector<Mat> images, std::vector<int> lbls) {
         if (images.size() <= 1) {
-            std::cerr << "You need at least 2 images to train.";
+            std::cerr << "You need at least 2 images to train.\n";
             return;
         } else if (lbls.size() != images.size()) {
-            std::cerr << "The number of labels needs to be the same as the number of images";
+            std::cerr << "The number of labels needs to be the same as the number of images\n";
             return;
         }
         // make sure data has correct size
         for (int i = 1; i < images.size(); i++) {
             if (images[i - 1].total() != images[i].total()) {
-                std::cerr << "All images must have the same number of pixel";
+                std::cerr << "All images must have the same number of pixel\n";
                 return;
             }
         }
@@ -87,10 +88,10 @@ public:
         Mat src = _src.getMat();
         // check data alignment just for clearer exception messages
         if (projections.empty()) {
-            std::cerr << "Error no data. Train the program first";
+            std::cerr << "Error no data. Train the program first\n";
             return;
         } else if (src.total() != (size_t) eigenvectors.rows) {
-            std::cerr << "Error the image size is not right";
+            std::cerr << "Error the image size is not right\n";
             return;
         }
         // project into LDA subspace

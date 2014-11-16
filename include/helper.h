@@ -12,8 +12,6 @@ using namespace cv;
 
 class Helper {
 public:
-    static Mat norm_0_255(InputArray _src);
-
     static Mat asRowMatrix(InputArrayOfArrays src, int rtype, double alpha = 1, double beta = 0);
 
     static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
@@ -30,8 +28,13 @@ public:
 
     static bool fileExists(const std::string &name);
 
+    static vector<Mat> blurImages(vector<Mat> srcs);
+
     static Mat transformImage(Mat srcs);
+
     static vector<Mat> transformImages(vector<Mat> srcs);
+
+    static Mat findFace(Mat frame);
 };
 
 // Removes duplicate elements in a given vector.
