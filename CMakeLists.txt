@@ -11,6 +11,6 @@ file(GLOB SOURCE_FILES
     "vendor/**/*.cpp"
 )
 find_package(OpenCV)
-include_directories( ${OpenCV_INCLUDE_DIRS} include )
+include_directories( ${OpenCV_INCLUDE_DIRS} include)
 add_executable(2face ${SOURCE_FILES})
 target_link_libraries(2face ${OpenCV_LIBS})

@@ -6,14 +6,12 @@ static const char USAGE[] =
         R"(facerecognition.
 
             Usage:
-                facerecognition add gallery <folder>
-                facerecognition add person <folder>
-                facerecognition purge
                 facerecognition [--gallery=<gal>] <picture>
                 facerecognition [--smoothing] <picture>
                 facerecognition [--verbose] <picture>
                 facerecognition (-h | --help)
                 facerecognition -s [<gallery_path>]
+                facerecognition -t <test_path>
                 facerecognition --version
 
             Options:

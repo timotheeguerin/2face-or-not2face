@@ -1,12 +1,15 @@
 #include "helper.h"
+#include <libgen.h>
+#include <sys/stat.h>
 
+using namespace std;
 
 void Helper::loadImages(string path, vector<Mat> &images, vector<int> &labels, string exclude) {
     vector<string> imageFiles = Helper::listImagesInPath(path);
     for (int i = 0; i != imageFiles.size(); ++i) {
         string image_filename = imageFiles[i];
         if (image_filename != exclude) {
-            images.push_back(imread(image_filename, 0));
+            images.push_back(Helper::readImage(image_filename));
             labels.push_back(Helper::getPersonFromFileName(image_filename));
         }
     }
@@ -101,4 +104,47 @@ Mat Helper::norm_0_255(InputArray _src) {
     return dst;
 }
 
+Mat Helper::readImage(std::string path) {
+    std::string filename;
+    if (regex_match(path, std::regex("(.*)\\.gif"))) {
+        filename = convertGif(path);
+    } else {
+        filename = path;
+    }
+    Mat src = imread(filename, 0);
+    Mat dst = src.clone();
+    blur( src, dst, Size(3,3) );
+    return dst;
+}
 
+Mat Helper::transformImage(Mat src) {
+        Mat dst = src.clone();
+        int lowThreshold = 100;
+        Canny( src, dst, lowThreshold, lowThreshold*3, 3 );
+        cv::imshow("dawd", dst);
+        cv::waitKey(20);
+    return dst;
+}
+
+
+vector<Mat> Helper::transformImages(vector<Mat> srcs) {
+    vector<Mat> dsts;
+    for (int i = 0; i != srcs.size(); ++i) {
+        dsts.push_back(transformImage(srcs[i]));
+    }
+    return dsts;
+}
+
+std::string Helper::convertGif(std::string path) {
+    std::string file = std::string(dirname((char *) path.c_str())) + "/" +
+            std::string(basename((char *) path.c_str())) + ".jpg";
+    std::string command = "convert " + path + " " + file;
+    system(command.c_str());
+    return file;
+}
+
+
+bool Helper::fileExists(const std::string &name) {
+    struct stat buffer;
+    return (stat(name.c_str(), &buffer) == 0);
+}

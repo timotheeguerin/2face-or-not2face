@@ -11,7 +11,7 @@
 #include "docopt.h"
 #include "face_matcher.h"
 
-#define PORTNUM 2349
+#define PORTNUM 2352
 #define MAXRCVLEN 500
 
 class Server {
@@ -42,10 +42,21 @@ public:
 //        for (auto const &arg : args) {
 //            std::cout << arg.first << " => " << arg.second << std::endl;
 //        }
-
-        if (args["<picture>"]) {
-            std::cout << "Predicting for image: " << args["<picture>"].asString() << std::endl;
-            return std::to_string(matcher.predict(args["<picture>"].asString()));
+        if (args["-t"] == docopt::value(true)) {
+            std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
+            for (int i = 0; i != images.size(); i++) {
+                int real = Helper::getPersonFromFileName(images[i]);
+                int pred = matcher.predict(images[i]);
+                std::cout << "Plan: " << pred << " == " << real << std::endl;
+            }
+        }
+        else if (args["<picture>"]) {
+            std::string filename = args["<picture>"].asString();
+            if (Helper::fileExists(filename)) {
+                return std::to_string(matcher.predict(args["<picture>"].asString()));
+            } else {
+                return "Error file doesn't exsit!";
+            }
         }
         return "";
     }
@@ -112,7 +123,7 @@ std::string sendMessage(std::string message) {
     dest.sin_port = htons(PORTNUM);                /* set destination port number */
 
     if (::connect(mysocket, (struct sockaddr *) &dest, sizeof(struct sockaddr)) == -1) {
-        std::cerr << "Error connecting to server";
+        std::cerr << "The server seems not to be started. Please use <command> -s to start it!";
     }
     send(mysocket, message.c_str(), strlen(message.c_str()), 0);
     len = recv(mysocket, buffer, MAXRCVLEN, 0);

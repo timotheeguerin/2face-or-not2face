@@ -16,6 +16,7 @@ std::string joinArray(int argc, char *argv[]) {
 
 
 int main(int argc, char *argv[]) {
+
     std::map<std::string, docopt::value> args = get_docopt_args(argc, argv);
 
 //    for (auto const &arg : args) {
@@ -29,7 +30,18 @@ int main(int argc, char *argv[]) {
 
         Server server(gallery_path);
         server.listenSocket();
-    } else {
+    } else if (args["-t"] == docopt::value(true)) {
+        FaceMatcher matcher;
+        matcher.train("/Users/tim/dev/cpp/2face/imgsless/");
+//        matcher.load();
+        std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
+        for (int i = 0; i != images.size(); i++) {
+            int real = Helper::getPersonFromFileName(images[i]);
+            int pred = matcher.predict(images[i]);
+            std::cout << "Plan: " << pred << " == " << real << "       | " << (real == pred) << std::endl;
+        }
+    }
+    else {
         std::cout << sendMessage(joinArray(argc, argv)) << std::endl;
     }
     return 0;

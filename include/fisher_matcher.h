@@ -22,8 +22,8 @@ private:
     vector<int> persons;
 
 public:
-    FisherMatcher(int component_number = 0, double threshold = DBL_MAX) : component_number(component_number),
-                                                                          threshold(threshold) {
+    FisherMatcher(int component_number = 0, double threshold = 5000) : component_number(component_number),
+                                                                        threshold(threshold) {
     }
 
     Mat getMean() {
@@ -37,16 +37,16 @@ public:
     void train(std::vector<Mat> images, std::vector<int> lbls) {
         if (images.size() <= 1) {
             std::cerr << "You need at least 2 images to train.";
-            exit(-1);
+            return;
         } else if (lbls.size() != images.size()) {
             std::cerr << "The number of labels needs to be the same as the number of images";
-            exit(-1);
+            return;
         }
         // make sure data has correct size
         for (int i = 1; i < images.size(); i++) {
             if (images[i - 1].total() != images[i].total()) {
                 std::cerr << "All images must have the same number of pixel";
-                exit(-1);
+                return;
             }
         }
         this->persons = vector<int>(lbls);
@@ -82,23 +82,24 @@ public:
     }
 
     void predict(InputArray _src, int &bestMatch, double &bestDistance) const {
+        bestMatch = -1;
+        bestDistance = threshold;
         Mat src = _src.getMat();
         // check data alignment just for clearer exception messages
         if (projections.empty()) {
             std::cerr << "Error no data. Train the program first";
-            exit(-1);
+            return;
         } else if (src.total() != (size_t) eigenvectors.rows) {
             std::cerr << "Error the image size is not right";
-            exit(-1);
+            return;
         }
         // project into LDA subspace
         Mat q = subspaceProject(eigenvectors, mean, src.reshape(1, 1));
 
         // Find the best match
-        bestDistance = threshold;
-        bestMatch = -1;
         for (int i = 0; i != projections.size(); ++i) {
             double distance = norm(projections[i], q, NORM_L2);
+//            std::cout << distance << std::endl;
             if ((distance < bestDistance)) {
                 bestDistance = distance;
                 bestMatch = persons[i];

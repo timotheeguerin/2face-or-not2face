@@ -1,4 +1,5 @@
 #include "face_matcher.h"
+
 using namespace std;
 
 string FaceMatcher::DATA_FILE = "save.xml";
@@ -15,12 +16,14 @@ void FaceMatcher::train(string file_path, string exclude) {
     vector<Mat> images;
     vector<int> persons;
     Helper::loadImages(file_path, images, persons, exclude);
-    matcher->train(images, persons);
+
+    matcher->train(images, std::vector<int>(persons));
 }
 
 int FaceMatcher::predict(string image_filename) {
-    Mat testImage = imread(image_filename, 0);
-    return matcher->predict(testImage);
+    Mat testImage = Helper::readImage(image_filename);
+    int result = matcher->predict(testImage);
+    return result;
 }
 
 void FaceMatcher::save() {

@@ -18,11 +18,20 @@ public:
 
     static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
 
-    static void loadImages(string path, vector<Mat> &images, vector<int> &labels, string testImage);
+    static void loadImages(string path, std::vector<Mat> &images, std::vector<int> &labels, string exclude = NULL);
 
-    static vector<string> listImagesInPath(string path);
+    static vector<string> listImagesInPath(std::string path);
 
-    static int getPersonFromFileName(string filename);
+    static int getPersonFromFileName(std::string filename);
+
+    static Mat readImage(std::string paths);
+
+    static std::string convertGif(std::string path);
+
+    static bool fileExists(const std::string &name);
+
+    static Mat transformImage(Mat srcs);
+    static vector<Mat> transformImages(vector<Mat> srcs);
 };
 
 // Removes duplicate elements in a given vector.
