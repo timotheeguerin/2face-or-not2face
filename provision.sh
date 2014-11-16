@@ -17,4 +17,4 @@ cd /vagrant/
 make clean
 CXX=/usr/bin/g++-4.9 cmake .
 make && \
-sudo ln -s /vagrant/2face /usr/local/bin/
+sudo ln -s /vagrant/facerecognition /usr/local/bin/
