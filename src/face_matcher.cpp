@@ -1,4 +1,5 @@
 #include "face_matcher.h"
+using namespace std;
 
 string FaceMatcher::DATA_FILE = "save.xml";
 

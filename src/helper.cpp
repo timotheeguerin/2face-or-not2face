@@ -1,25 +1,42 @@
 #include "helper.h"
 
 
-void Helper::loadImages(string path, vector<Mat> &images, vector<int> &labels, string testImage) {
+void Helper::loadImages(string path, vector<Mat> &images, vector<int> &labels, string exclude) {
+    vector<string> imageFiles = Helper::listImagesInPath(path);
+    for (int i = 0; i != imageFiles.size(); ++i) {
+        string image_filename = imageFiles[i];
+        if (image_filename != exclude) {
+            images.push_back(imread(image_filename, 0));
+            labels.push_back(Helper::getPersonFromFileName(image_filename));
+        }
+    }
+}
+
+vector<string> Helper::listImagesInPath(string path) {
     DIR *dir;
+    vector<string> images;
     struct dirent *ent;
     if ((dir = opendir(path.c_str())) != NULL) {
-        /* print all the files and directories within directory */
         while ((ent = readdir(dir)) != NULL) {
             string full_name = path + ent->d_name;
-            if (full_name != testImage && regex_match(ent->d_name, std::regex("(.*)\\.jpg"))) {
-                images.push_back(imread(full_name, 0));
-                std::vector<std::string> array;
-                split(ent->d_name, '_', array);
-                labels.push_back(atoi(array[0].c_str()));
+            if (regex_match(ent->d_name, std::regex("(.*)\\.jpg"))) {
+                images.push_back(full_name);
             }
         }
         closedir(dir);
     } else {
-        /* could not open directory */
+/* could not open directory */
         perror("");
     }
+    return images;
+}
+
+int Helper::getPersonFromFileName(string filename) {
+    vector<string> segment;
+    vector<string> array;
+    split(filename, '/', segment);
+    split(segment[segment.size() - 1], '_', array);
+    return atoi(array[0].c_str());
 }
 
 std::vector<std::string> &Helper::split(const std::string &s, char delim, std::vector<std::string> &elems) {
