@@ -21,7 +21,7 @@ make && \
 echo "Adding to global bin folder..."
 sudo ln -s /vagrant/facerecognition /usr/local/bin/
 
-echo "Running facial recognition server..."
-./facerecognition --server ./imgs/
+echo "Adding facial recognition server to startup..."
+ln -s /vagrant/bootstrap-facerecognition /etc/init.d/
 
 echo "Done Done Done."
