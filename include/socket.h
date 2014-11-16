@@ -49,10 +49,9 @@ public:
         return "";
     }
 
-    static void onQuit(int signum) {
+    static void onQuit() {
         std::cout << "Closing socket!" << std::endl;
         close(server_socket);
-        exit(signum);
     }
 
     void listenSocket() {
@@ -73,7 +72,7 @@ public:
             std::cerr << "Error binding\n";
             return;
         }
-        signal(SIGINT, onQuit);
+        atexit(onQuit);
 
         /* start listening, allowing a queue of up to 1 pending connection */
         listen(server_socket, 1);
