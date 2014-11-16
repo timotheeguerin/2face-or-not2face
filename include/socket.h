@@ -64,6 +64,7 @@ public:
         /* bind serv information to mysocket */
         if (bind(mysocket, (struct sockaddr *) &serv, sizeof(struct sockaddr)) == -1) {
             std::cerr << "Error binding\n";
+            return;
         }
 
         /* start listening, allowing a queue of up to 1 pending connection */
