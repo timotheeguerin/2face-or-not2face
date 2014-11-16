@@ -16,7 +16,7 @@ On ubuntu you can get it from the test toolchain.
 `libopencv-dev` takes around 250MB to download.
 
 ```bash
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get -qq update
 sudo apt-get -qq install g++-4.9
 sudo apt-get -qq install cmake libopencv-dev
