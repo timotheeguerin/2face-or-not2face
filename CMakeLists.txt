@@ -9,7 +9,6 @@ file(GLOB SOURCE_FILES
     "src/*.cpp"
     "vendor/**/*.h"
     "vendor/**/*.cpp"
-    main.cpp
 )
 find_package(OpenCV)
 include_directories( ${OpenCV_INCLUDE_DIRS} include )
