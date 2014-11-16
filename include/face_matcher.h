@@ -19,8 +19,7 @@ public:
 
     void save();
 
-    FaceMatcher static load();
-
+    void load();
 };
 
 

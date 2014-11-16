@@ -11,7 +11,7 @@
 #include "docopt.h"
 #include "face_matcher.h"
 
-#define PORTNUM 2348
+#define PORTNUM 2349
 #define MAXRCVLEN 500
 
 class Server {
@@ -19,8 +19,16 @@ private:
     FaceMatcher matcher;
 public:
 
-    Server() {
-        matcher.train("/Users/tim/dev/cpp/2face/imgs/");
+    Server(std::string gallery_folder) {
+        std::cout << "Launching server..." << std::endl;
+        if (gallery_folder == "") {
+            matcher.load();
+        }
+        else {
+            matcher.train(gallery_folder);
+            matcher.save();
+        }
+        std::cout << "Server training done..." << std::endl;
     }
 
     std::string processCommand(std::string command) {
@@ -70,7 +78,7 @@ public:
         while (consocket) {
             printf("Incoming connection from %s - sending welcome\n", inet_ntoa(dest.sin_addr));
             do {
-                if(len < MAXRCVLEN) {
+                if (len < MAXRCVLEN) {
                     message = "";
                 }
                 len = recv(consocket, buffer, MAXRCVLEN, 0);

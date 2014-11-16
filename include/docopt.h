@@ -13,7 +13,7 @@ static const char USAGE[] =
                 facerecognition [--smoothing] <picture>
                 facerecognition [--verbose] <picture>
                 facerecognition (-h | --help)
-                facerecognition -s
+                facerecognition -s [<gallery_path>]
                 facerecognition --version
 
             Options:

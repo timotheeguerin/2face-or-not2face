@@ -28,8 +28,6 @@ void FaceMatcher::save() {
     matcher->save(FaceMatcher::DATA_FILE);
 }
 
-FaceMatcher FaceMatcher::load() {
-    FaceMatcher face_matcher;
-    face_matcher.matcher->load(FaceMatcher::DATA_FILE);
-    return face_matcher;
+void FaceMatcher::load() {
+    matcher->load(FaceMatcher::DATA_FILE);
 }
