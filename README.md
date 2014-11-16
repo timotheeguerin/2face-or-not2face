@@ -9,50 +9,33 @@
 $ ./2face -s ./imgs/
 ```
 
-# Build
+# Build On Ubuntu 14.04
 
 Make sure you are using g++-4.9 to have access to c++11 features.
-On ubuntu you can get it from:
+On ubuntu you can get it from the test toolchain.
+`libopencv-dev` takes around 250MB to download.
+
 ```bash
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install gcc-4.9
+sudo apt-get -qq update
+sudo apt-get -qq install g++-4.9
+sudo apt-get -qq install cmake libopencv-dev
 ```
 
+On Ubuntu 14.04:
 
 ```bash
-$ cmake
-$ make
--- Configuring done
-You have changed variables that require your cache to be deleted.
-Configure will be re-run and you may have to reset some variables.
-The following variables have changed:
-CMAKE_CXX_COMPILER= /usr/bin/g++-4.9
-
--- The C compiler identification is GNU 4.8.2
--- The CXX compiler identification is GNU 4.9.2
--- Check for working C compiler: /usr/bin/cc
--- Check for working C compiler: /usr/bin/cc -- works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/g++-4.9
--- Check for working CXX compiler: /usr/bin/g++-4.9 -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
+vagrant@vagrant-ubuntu-trusty-64$ CXX=/usr/bin/g++-4.9 cmake --target facerecognition --build .
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /vagrant/2face-or-not2face
-Scanning dependencies of target 2face
-make[2]: Warning: File `CMakeFiles/2face.dir/depend.make' has modification time 0.0018 s in the future
-[ 20%] Building CXX object CMakeFiles/2face.dir/src/face_matcher.cpp.o
-[ 40%] Building CXX object CMakeFiles/2face.dir/src/facerecognition.cpp.o
-[ 60%] Building CXX object CMakeFiles/2face.dir/src/helper.cpp.o
-[ 80%] Building CXX object CMakeFiles/2face.dir/vendor/docopt.cpp/docopt.cpp.o
-[100%] Building CXX object CMakeFiles/2face.dir/main.cpp.o
+vagrant@vagrant-ubuntu-trusty-64$ make
+[ 25%] Building CXX object CMakeFiles/2face.dir/src/main.cpp.o
+[ 50%] Building CXX object CMakeFiles/2face.dir/src/face_matcher.cpp.o
+[ 75%] Building CXX object CMakeFiles/2face.dir/src/helper.cpp.o
+[100%] Building CXX object CMakeFiles/2face.dir/vendor/docopt.cpp/docopt.cpp.o
 Linking CXX executable 2face
-make[2]: warning:  Clock skew detected.  Your build may be incomplete.
 [100%] Built target 2face
-
 ```
 
 
@@ -72,7 +55,7 @@ Predicting for image: ./imgs/1_2_.jpg
 
 Client side:
 ```bash
- ./2face ./imgs/1_2_.jpg
+$ ./2face ./imgs/1_2_.jpg
 1
 ```
 
