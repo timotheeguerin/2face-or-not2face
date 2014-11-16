@@ -113,16 +113,17 @@ Mat Helper::readImage(std::string path) {
     }
     Mat src = imread(filename, 0);
     Mat dst = src.clone();
-    blur( src, dst, Size(3,3) );
+    blur(src, dst, Size(3, 3));
     return dst;
 }
 
 Mat Helper::transformImage(Mat src) {
-        Mat dst = src.clone();
-        int lowThreshold = 100;
-        Canny( src, dst, lowThreshold, lowThreshold*3, 3 );
-        cv::imshow("dawd", dst);
-        cv::waitKey(20);
+    Mat dst = src.clone();
+    int lowThreshold = 100;
+    cv::adaptiveThreshold(src, dst, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 5, 7);
+//        Canny( src, dst, lowThreshold, lowThreshold*3, 3 );
+    cv::imshow("dawd", dst);
+    cv::waitKey(20);
     return dst;
 }
 
@@ -142,7 +143,6 @@ std::string Helper::convertGif(std::string path) {
     system(command.c_str());
     return file;
 }
-
 
 bool Helper::fileExists(const std::string &name) {
     struct stat buffer;

@@ -34,11 +34,26 @@ int main(int argc, char *argv[]) {
         FaceMatcher matcher;
         matcher.train(args["<gallery_path>"].asString());
         std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
+        int fail_count = 0;
+        int error_count = 0;
+        int total = 0;
         for (int i = 0; i != images.size(); i++) {
             int real = Helper::getPersonFromFileName(images[i]);
             int pred = matcher.predict(images[i]);
-            std::cout << "Plan: " << pred << " == " << real << "       | " << (real == pred) << std::endl;
+            printf("%i | %-60s | %d == %d\n", (real == pred), images[i].c_str(), pred, real);
+            total++;
+            if (pred == -1) {
+                fail_count++;
+            }
+            else if (real != pred) {
+                error_count++;
+            }
         }
+        std::cout << "Number of false positive: " << error_count << std::endl;
+        std::cout << "Number of fail: " << fail_count << std::endl;
+        float precision = ((float) (total - error_count - fail_count) / total) * 100;
+        printf("Precision: %.2f%%", precision);
+
     }
     else {
         std::cout << sendMessage(joinArray(argc, argv)) << std::endl;
