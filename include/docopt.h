@@ -6,16 +6,16 @@ static const char USAGE[] =
         R"(facerecognition.
 
             Usage:
-                facerecognition [--gallery=<gal>] <picture>
-                facerecognition (-h | --help)
+                facerecognition [(-g | --gallery) <gallery_path>] <picture>
                 facerecognition (-s | --server) [<gallery_path>]
                 facerecognition (-t | --test) <gallery_path> <test_path>
+                facerecognition (-h | --help)
                 facerecognition --version
 
             Options:
               -h --help        Show this screen.
               --version        Show version.
-              --gallery=<gal>  Manually specify gallery to train on.
+              --gallery        Manually specify gallery to train on.
               -s --server      Starts the training on the specified gallery.
               -t --test        Run the test on the specified folder.
         )";

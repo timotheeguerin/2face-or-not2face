@@ -34,6 +34,15 @@ int main(int argc, char *argv[]) {
         Server server(gallery_path);
         server.listenSocket();
 
+    } else if (args["-g"] == docopt::value(true) || args["--gallery"] == docopt::value(true)) {
+
+        FaceMatcher matcher;
+        matcher.train(args["<gallery_path>"].asString());
+        
+        int pred = matcher.predict(args["<picture>"].asString());
+
+        std::cout << pred << std::endl;
+
     } else if (args["-t"] == docopt::value(true) || args["--test"] == docopt::value(true)) {
         FaceMatcher matcher;
         matcher.train(args["<gallery_path>"].asString());
