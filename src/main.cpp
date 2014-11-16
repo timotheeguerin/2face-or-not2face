@@ -32,8 +32,7 @@ int main(int argc, char *argv[]) {
         server.listenSocket();
     } else if (args["-t"] == docopt::value(true)) {
         FaceMatcher matcher;
-        matcher.train("/Users/tim/dev/cpp/2face/imgsless/");
-//        matcher.load();
+        matcher.train(args["<gallery_path>"].asString());
         std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
         for (int i = 0; i != images.size(); i++) {
             int real = Helper::getPersonFromFileName(images[i]);

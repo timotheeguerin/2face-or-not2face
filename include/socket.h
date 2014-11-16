@@ -39,23 +39,12 @@ public:
         char **argv;
         stringToArgcArgv(command, &argc, &argv);
         std::map<std::string, docopt::value> args = get_docopt_args(argc, argv);
-//        for (auto const &arg : args) {
-//            std::cout << arg.first << " => " << arg.second << std::endl;
-//        }
-        if (args["-t"] == docopt::value(true)) {
-            std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
-            for (int i = 0; i != images.size(); i++) {
-                int real = Helper::getPersonFromFileName(images[i]);
-                int pred = matcher.predict(images[i]);
-                std::cout << "Plan: " << pred << " == " << real << std::endl;
-            }
-        }
-        else if (args["<picture>"]) {
+        if (args["<picture>"]) {
             std::string filename = args["<picture>"].asString();
             if (Helper::fileExists(filename)) {
                 return std::to_string(matcher.predict(args["<picture>"].asString()));
             } else {
-                return "Error file doesn't exsit!";
+                return "Error file doesn't exist!";
             }
         }
         return "";
