@@ -7,20 +7,17 @@ static const char USAGE[] =
 
             Usage:
                 facerecognition [--gallery=<gal>] <picture>
-                facerecognition [--smoothing] <picture>
-                facerecognition [--verbose] <picture>
                 facerecognition (-h | --help)
-                facerecognition -s [<gallery_path>]
+                facerecognition (-s | --server) [<gallery_path>]
                 facerecognition (-t | --test) <gallery_path> <test_path>
                 facerecognition --version
 
             Options:
               -h --help        Show this screen.
               --version        Show version.
-              --gallery=<gal>  Speed in knots [default: 10].
-              --fisher-faces   Use fisher faces algorithm.
-              --smoothing      Enable smoothing of the input picture.
-              --verbose        Prints more information.
+              --gallery=<gal>  Manually specify gallery to train on.
+              -s --server      Starts the training on the specified gallery.
+              -t --test        Run the test on the specified folder.
         )";
 
 #include <iostream>

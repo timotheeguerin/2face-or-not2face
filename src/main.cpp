@@ -19,18 +19,22 @@ int main(int argc, char *argv[]) {
 
     std::map<std::string, docopt::value> args = get_docopt_args(argc, argv);
 
-//    for (auto const &arg : args) {
-//        std::cout << arg.first << ": " << arg.second << std::endl;
-//    }
-    if (args["-s"] == docopt::value(true)) {
+    // Prints arguments passed
+    // for (auto const &arg : args) std::cout << arg.first << ": " << arg.second << std::endl;
+
+    if (args["-s"] == docopt::value(true) || args["--server"] == docopt::value(true)) {
+
+        // If gallery is empty, uses the save.xml file
         std::string gallery_path = "";
+
         if (args["<gallery_path>"]) {
             gallery_path = args["<gallery_path>"].asString();
         }
 
         Server server(gallery_path);
         server.listenSocket();
-    } else if (args["-t"] == docopt::value(true)) {
+
+    } else if (args["-t"] == docopt::value(true) || args["--test"] == docopt::value(true)) {
         FaceMatcher matcher;
         matcher.train(args["<gallery_path>"].asString());
         std::vector<std::string> images = Helper::listImagesInPath(args["<test_path>"].asString());
