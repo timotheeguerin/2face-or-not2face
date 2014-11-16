@@ -10,7 +10,6 @@
 #include "helper.h"
 
 using namespace cv;
-using namespace std;
 
 class FisherMatcher {
 private:
@@ -35,18 +34,18 @@ public:
         return eigenvectors;
     }
 
-    void train(vector<Mat> images, vector<int> lbls) {
+    void train(std::vector<Mat> images, std::vector<int> lbls) {
         if (images.size() <= 1) {
-            cerr << "You need at least 2 images to train.";
+            std::cerr << "You need at least 2 images to train.";
             exit(-1);
         } else if (lbls.size() != images.size()) {
-            cerr << "The number of labels needs to be the same as the number of images";
+            std::cerr << "The number of labels needs to be the same as the number of images";
             exit(-1);
         }
         // make sure data has correct size
         for (int i = 1; i < images.size(); i++) {
             if (images[i - 1].total() != images[i].total()) {
-                cerr << "All images must have the same number of pixel";
+                std::cerr << "All images must have the same number of pixel";
                 exit(-1);
             }
         }
@@ -86,10 +85,10 @@ public:
         Mat src = _src.getMat();
         // check data alignment just for clearer exception messages
         if (projections.empty()) {
-            cerr << "Error no data. Train the program first";
+            std::cerr << "Error no data. Train the program first";
             exit(-1);
         } else if (src.total() != (size_t) eigenvectors.rows) {
-            cerr << "Error the image size is not right";
+            std::cerr << "Error the image size is not right";
             exit(-1);
         }
         // project into LDA subspace

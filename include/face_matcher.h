@@ -2,21 +2,20 @@
 
 #include "fisher_matcher.h"
 
-using namespace std;
 using namespace cv;
 
 class FaceMatcher {
 private:
-    static string DATA_FILE;;
+    static std::string DATA_FILE;;
     FisherMatcher *matcher;
 public:
     FaceMatcher();
 
     ~FaceMatcher();
 
-    void train(string file_path, string exclude = "");
+    void train(std::string file_path, std::string exclude = "");
 
-    int predict(string image_filename);
+    int predict(std::string image_filename);
 
     void save();
 

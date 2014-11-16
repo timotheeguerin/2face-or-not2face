@@ -7,6 +7,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 file(GLOB SOURCE_FILES
     "include/*.h"
     "src/*.cpp"
+    "vendor/**/*.h"
+    "vendor/**/*.cpp"
     main.cpp
 )
 set(QT_DEPENDENCIES Core)
