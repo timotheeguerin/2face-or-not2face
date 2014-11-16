@@ -73,7 +73,6 @@ public:
             std::cerr << "Error binding\n";
             return;
         }
-        signal(SIGKILL, onQuit);
         signal(SIGINT, onQuit);
 
         /* start listening, allowing a queue of up to 1 pending connection */
