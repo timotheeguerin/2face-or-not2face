@@ -17,4 +17,11 @@ cd /vagrant/
 make clean
 CXX=/usr/bin/g++-4.9 cmake .
 make && \
+
+echo "Adding to global bin folder..."
 sudo ln -s /vagrant/facerecognition /usr/local/bin/
+
+echo "Running facial recognition server..."
+./facerecognition --server ./imgs/
+
+echo "Done Done Done."

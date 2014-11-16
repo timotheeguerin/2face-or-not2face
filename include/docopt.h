@@ -11,6 +11,7 @@ static const char USAGE[] =
                 facerecognition (-t | --test) <gallery_path> <test_path>
                 facerecognition (-h | --help)
                 facerecognition --version
+                facerecognition <picture>
 
             Options:
               -h --help        Show this screen.
