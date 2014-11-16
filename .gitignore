@@ -35,3 +35,6 @@ cmake_install.cmake
 install_manifest.txt
 Testing
 CTestTestfile.cmake
+
+save-face.xml
+save-full.xml
