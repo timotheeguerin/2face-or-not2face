@@ -6,7 +6,8 @@ using namespace cv;
 
 class FaceMatcher {
 private:
-    static std::string DATA_FILE;;
+    static std::string FACE_DATA_FILE;
+    static std::string FULL_DATA_FILE;
     FisherMatcher *matcher;
     FisherMatcher *fullMatcher;
 public:

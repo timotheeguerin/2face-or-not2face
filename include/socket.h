@@ -28,7 +28,6 @@ public:
             matcher.train(gallery_folder);
             matcher.save();
         }
-        std::cout << "Server training done..." << std::endl;
     }
 
     std::string processCommand(std::string command) {
@@ -71,6 +70,7 @@ public:
 
         /* start listening, allowing a queue of up to 1 pending connection */
         listen(mysocket, 1);
+        printf("Server listening to port %d\n", PORTNUM);
         int consocket = accept(mysocket, (struct sockaddr *) &dest, &socksize);
         int len;
         std::string message = "";
@@ -81,7 +81,7 @@ public:
                 if (len < MAXRCVLEN) {
                     message = "";
                 }
-                len = recv(consocket, buffer, MAXRCVLEN, 0);
+                len = (int) recv(consocket, buffer, MAXRCVLEN, 0);
                 buffer[len] = '\0';
                 message += buffer;
             } while (len >= MAXRCVLEN);
