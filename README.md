@@ -28,7 +28,7 @@ sudo apt-get -qq install cmake libopencv-dev
 On Ubuntu 14.04:
 
 ```bash
-vagrant@vagrant-ubuntu-trusty-64$ CXX=/usr/bin/g++-4.9 cmake --target facerecognition --build .
+vagrant@vagrant-ubuntu-trusty-64$ CXX=/usr/bin/g++-4.9 cmake .
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /vagrant/2face-or-not2face

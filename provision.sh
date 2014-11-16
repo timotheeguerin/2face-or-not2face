@@ -15,6 +15,6 @@ sudo apt-get -qq install cmake libopencv-dev > /dev/null
 echo "Compiling facerecognition..."
 cd /vagrant/
 make clean
-CXX=/usr/bin/g++-4.9 cmake --target facerecognition --build .
+CXX=/usr/bin/g++-4.9 cmake .
 make && \
 sudo ln -s /vagrant/2face /usr/local/bin/
