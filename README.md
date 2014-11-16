@@ -1,6 +1,9 @@
 2face-or-not2face
 =================
 
+# Vagrant
+
+If you use Vagrant, a simple `vagrant up` will install everything properly.
 
 # Run
 
