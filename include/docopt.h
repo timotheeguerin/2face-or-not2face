@@ -15,7 +15,7 @@ static const char USAGE[] =
             Options:
               -h --help        Show this screen.
               --version        Show version.
-              --gallery        Manually specify gallery to train on.
+              -g --gallery     Manually specify gallery to train on.
               -s --server      Starts the training on the specified gallery.
               -t --test        Run the test on the specified folder.
         )";
