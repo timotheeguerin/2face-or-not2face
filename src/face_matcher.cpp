@@ -39,15 +39,19 @@ int FaceMatcher::predict(string image_filename) {
 }
 
 void FaceMatcher::save() {
-    cout << "Saving data: " << endl;
+    cout << "Saving data to: " << endl;
     printf("\t %s\n", FaceMatcher::FACE_DATA_FILE.c_str());
-    printf("\t %s\n", FaceMatcher::FULL_DATA_FILE.c_str());
     matcher->save(FaceMatcher::FACE_DATA_FILE);
-    matcher->save(FaceMatcher::FULL_DATA_FILE);
+    printf("\t %s\n", FaceMatcher::FULL_DATA_FILE.c_str());
+    fullMatcher->save(FaceMatcher::FULL_DATA_FILE);
     cout << "Saved!" << endl;
 }
 
 void FaceMatcher::load() {
+    cout << "Loading data from: " << endl;
+    printf("\t %s\n", FaceMatcher::FACE_DATA_FILE.c_str());
     matcher->load(FaceMatcher::FACE_DATA_FILE);
-    matcher->load(FaceMatcher::FULL_DATA_FILE);
+    printf("\t %s\n", FaceMatcher::FULL_DATA_FILE.c_str());
+    fullMatcher->load(FaceMatcher::FULL_DATA_FILE);
+    cout << "Loaded!" << endl;
 }

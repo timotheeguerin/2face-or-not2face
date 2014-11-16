@@ -22,6 +22,7 @@ public:
     Server(std::string gallery_folder) {
         std::cout << "Launching server..." << std::endl;
         if (gallery_folder == "") {
+            std::cout << "Loading save" << std::endl;
             matcher.load();
         }
         else {
@@ -31,9 +32,6 @@ public:
     }
 
     std::string processCommand(std::string command) {
-
-        std::cout << "Receiving: " << std::endl;
-        std::cout << command << std::endl;
         int argc;
         char **argv;
         stringToArgcArgv(command, &argc, &argv);
@@ -112,7 +110,11 @@ std::string sendMessage(std::string message) {
     dest.sin_port = htons(PORTNUM);                /* set destination port number */
 
     if (::connect(mysocket, (struct sockaddr *) &dest, sizeof(struct sockaddr)) == -1) {
-        std::cerr << "The server seems not to be started(It might have crashed). Please use <command> -s to start it!";
+        std::cout << "The server seems not to be started(It might have crashed). Please use facerecognition -s to start it!\n";
+        std::cerr << "";
+        Server server("");
+        std::cout << "------------------------------------------------" << std::endl;
+        return server.processCommand(message);
     }
     send(mysocket, message.c_str(), strlen(message.c_str()), 0);
     len = recv(mysocket, buffer, MAXRCVLEN, 0);
