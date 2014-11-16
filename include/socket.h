@@ -112,7 +112,7 @@ std::string sendMessage(std::string message) {
     dest.sin_port = htons(PORTNUM);                /* set destination port number */
 
     if (::connect(mysocket, (struct sockaddr *) &dest, sizeof(struct sockaddr)) == -1) {
-        std::cerr << "The server seems not to be started. Please use <command> -s to start it!";
+        std::cerr << "The server seems not to be started(It might have crashed). Please use <command> -s to start it!";
     }
     send(mysocket, message.c_str(), strlen(message.c_str()), 0);
     len = recv(mysocket, buffer, MAXRCVLEN, 0);
