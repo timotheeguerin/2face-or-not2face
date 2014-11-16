@@ -22,9 +22,8 @@ private:
 public:
 
     Server(std::string gallery_folder) {
-        std::cout << "Launching server..." << std::endl;
+//        std::cout << "Launching server..." << std::endl;
         if (gallery_folder == "") {
-            std::cout << "Loading save" << std::endl;
             matcher.load();
         }
         else {
@@ -118,10 +117,10 @@ std::string sendMessage(std::string message) {
     dest.sin_port = htons(PORTNUM);                /* set destination port number */
 
     if (::connect(mysocket, (struct sockaddr *) &dest, sizeof(struct sockaddr)) == -1) {
-        std::cout << "The server seems not to be started(It might have crashed). Please use facerecognition -s to start it!\n";
-        std::cerr << "";
+//        std::cout << "The server seems not to be started(It might have crashed). Please use facerecognition -s to start it!\n";
+//        std::cerr << "";
+//        std::cout << "------------------------------------------------" << std::endl;
         Server server("");
-        std::cout << "------------------------------------------------" << std::endl;
         return server.processCommand(message);
     }
     send(mysocket, message.c_str(), strlen(message.c_str()), 0);

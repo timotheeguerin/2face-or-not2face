@@ -48,10 +48,10 @@ void FaceMatcher::save() {
 }
 
 void FaceMatcher::load() {
-    cout << "Loading data from: " << endl;
-    printf("\t %s\n", FaceMatcher::FACE_DATA_FILE.c_str());
+//    cout << "Loading data from: " << endl;
+//    printf("\t %s\n", FaceMatcher::FACE_DATA_FILE.c_str());
     matcher->load(FaceMatcher::FACE_DATA_FILE);
-    printf("\t %s\n", FaceMatcher::FULL_DATA_FILE.c_str());
+//    printf("\t %s\n", FaceMatcher::FULL_DATA_FILE.c_str());
     fullMatcher->load(FaceMatcher::FULL_DATA_FILE);
-    cout << "Loaded!" << endl;
+//    cout << "Loaded!" << endl;
 }
